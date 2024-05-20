@@ -1,0 +1,47 @@
+#mainAnchorPane{
+    -fx-background-image: url("../images/free-photo-of-shiny-water-at-sunset.jpeg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover, auto;
+}
+#childAnchorPane{
+     -fx-background-color: #f0f0f0;
+     -fx-background-radius: 20px;
+     -fx-border-radius: 20px;
+     -fx-border-color: #ccc;
+     -fx-border-width: 2px;
+     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 6, 0, 2, 2);
+}
+#childAnchorPane2{
+     -fx-background-color: #f0f0f0;
+     -fx-background-radius: 20px;
+     -fx-border-radius: 20px;
+     -fx-border-color: #ccc;
+     -fx-border-width: 2px;
+     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 6, 0, 2, 2);
+}
+
+#logo {
+    -fx-transition: all 0.5s ease-in-out;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 0, 1), 5, 0, 0, 0);
+}
+#logo:hover {
+    -fx-cursor: hand;
+    -fx-text-fill: #A70497;
+}
+
+#loginButton {
+    -fx-background-color: #2ADB10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 6, 0, 2, 2);
+}
+#loginButton:hover {
+    -fx-background-color: #00FF00;
+    -fx-cursor: hand;
+}
+#cancelButton{
+    -fx-background-color: #901A01;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 6, 0, 2, 2);
+}
+#cancelButton:hover{
+    -fx-background-color: #FF0000;
+    -fx-cursor: hand;
+}
