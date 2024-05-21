@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -56,8 +57,9 @@
          <Button fx:id="loginButton" layoutX="168.0" layoutY="241.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Login" textFill="WHITE" />
          <Button fx:id="cancelButton" layoutX="83.0" layoutY="241.0" mnemonicParsing="false" prefWidth="60.0" text="Cancel" textFill="WHITE" />
          <Label fx:id="alertLabel" alignment="CENTER" layoutX="5.0" layoutY="145.0" prefHeight="20.0" prefWidth="237.0" textFill="#fc0f0f" />
+         <DatePicker layoutX="39.0" layoutY="81.0" />
       </children></AnchorPane>
-   <Label layoutX="616.0" layoutY="17.0" text="\@LarryKin" textFill="#f5f2f2">
+   <Label layoutX="616.0" layoutY="17.0" text="\@LarryKin" textFill="#f5f2f2" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
       <font>
          <Font name="Segoe Script Bold" size="12.0" />
       </font>
