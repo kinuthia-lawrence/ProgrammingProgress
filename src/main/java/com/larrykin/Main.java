@@ -17,8 +17,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/FXML/Login.fxml"));
         primaryStage.setTitle("Programming Progress Tracker");
         primaryStage.setResizable(false);
-//        primaryStage.initStyle(StageStyle.UNDECORATED);
-
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

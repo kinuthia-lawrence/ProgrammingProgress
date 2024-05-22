@@ -1,16 +1,24 @@
 package com.larrykin.Controllers;
 
-import javafx.fxml.Initializable;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXML;
-import javafx.scene.paint.Color;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import javafx.stage.Stage;
 
-public class LoginController implements Initializable {
+
+
+
+public class LoginController{
     @FXML
     private Label alertLabel;
 
@@ -44,10 +52,38 @@ public class LoginController implements Initializable {
     @FXML
     private PasswordField passwordField;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public static String email;
 
+
+    //! close window when cancel button is clicked
+    public void cancelButtonOnAction(ActionEvent actionEvent) {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
     }
 
+
+    public void loginButtonOnAction(ActionEvent actionEvent) {
+        dashboard();
+         email = "kinuthialwrence343@gmail.com";
+    }
+
+    private void dashboard() {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/Dashboard.fxml"));
+            Stage dashboardStage = new Stage();
+            Scene dashboardScene = new Scene(fxmlLoader.load());
+            dashboardStage.setScene(dashboardScene);
+            dashboardStage.setTitle( email + "   Programming Progress Tracker");
+            Image icon = new Image(getClass().getResourceAsStream("/IMAGES/pexels-cottonbro-6804581.jpg"));
+            dashboardStage.getIcons().add(icon);
+            dashboardStage.show();
+
+            Stage stage =(Stage) loginButton.getScene().getWindow();
+            stage.close();
+        }catch(Exception e){
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
 
 }
