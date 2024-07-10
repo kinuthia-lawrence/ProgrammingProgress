@@ -7,7 +7,7 @@
      -fx-background-color: #f0f0f0;
      -fx-background-radius: 20px;
      -fx-border-radius: 20px;
-     -fx-border-color: #ccc;
+     -fx-border-color: #ffffff;
      -fx-border-width: 2px;
      -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 6, 0, 2, 2);
 }

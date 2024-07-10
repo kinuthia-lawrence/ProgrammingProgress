@@ -42,3 +42,26 @@
 -fx-background-size: cover, auto;
  -fx-opacity: 0.5;
 }
+#searchPane{
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+     -fx-background-color: #ffffff;
+        -fx-font-size: 1.4em;
+        -fx-effect: dropshadow( three-pass-box , #aaaaaa , 3, 0.0 , 0 , 5 );
+}
+#searchComboBox{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+.search-button{
+    -fx-background-color: #828282;
+    -fx-background-radius: 30;
+}
+.search-box{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 100;
+}
