@@ -1,0 +1,32 @@
+#addAnchorPane{
+    -fx-background-color: #AAAAAA;
+}
+.text-area {
+-fx-background-color: #E6E6E6;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+.text-field {
+-fx-background-color: #E6E6E6;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+.combo-box .list-cell {
+-fx-background-color: #E6E6E6;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+.combo-box-base {
+-fx-background-color: #E6E6E6;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+#saveButton{
+    -fx-background-color: #55FF55;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+#saveButton:hover {
+    -fx-background-color: #00FF00;
+    cursor: pointer;
+}
