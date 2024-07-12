@@ -1,0 +1,24 @@
+#viewAnchorPane{
+    -fx-background-color: #AAAAAA;
+}
+#filterbox{
+ -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+     -fx-background-color: #ffffff;
+        -fx-font-size: 1.4em;
+        -fx-effect: dropshadow( three-pass-box , #aaaaaa , 3, 0.0 , 0 , 5 );
+}
+
+.combo-box .list-cell {
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+.combo-box-base {
+-fx-background-color: rgba(0,0,0,0);
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+#filterButton{
+    -fx-background-radius: 30;
+    -fx-background-color: rgba(0,0,0,0);
+}

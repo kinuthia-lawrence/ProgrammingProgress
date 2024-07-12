@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="addAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="679.0" stylesheets="@../STYLES/Edit.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.larrykin.Controllers.EditController">
+<AnchorPane fx:id="editAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="679.0" stylesheets="@../STYLES/Edit.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.larrykin.Controllers.EditController">
     <DatePicker fx:id="datePicker" layoutX="11.0" layoutY="85.0" prefHeight="42.0" prefWidth="202.0" promptText="Begining Date" AnchorPane.leftAnchor="5.0" />
     <Label layoutX="37.0" layoutY="9.0" prefHeight="42.0" prefWidth="150.0" text="EDIT A PROJECT">
         <font>
