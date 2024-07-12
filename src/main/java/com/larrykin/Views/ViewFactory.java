@@ -3,7 +3,6 @@ package com.larrykin.Views;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -12,7 +11,7 @@ import javafx.stage.StageStyle;
 public class ViewFactory {
 
     private final ObjectProperty dashboardSelectedItem;
-    private AnchorPane addAnchorPane, editAnchorPane, viewAnchorPane, otherAnchorPane, projectAnchorPane, todoAnchorPane;
+    private AnchorPane addAnchorPane, editAnchorPane, viewAnchorPane, projectAnchorPane, todoAnchorPane;
 
 
     //?constructor
@@ -28,7 +27,7 @@ public class ViewFactory {
         return dashboardSelectedItem;
     }
 
-    //? getting resources
+    //! getting resources
     public AnchorPane getAddAnchorPane() {
         if (addAnchorPane == null) {
             try {
@@ -40,6 +39,51 @@ public class ViewFactory {
         }
         return addAnchorPane;
     }
+    public AnchorPane getEditAnchorPane(){
+        if(editAnchorPane == null){
+            try{
+                editAnchorPane = new FXMLLoader(getClass().getResource("/FXML/Edit.fxml")).load();
+            }catch (Exception e){
+                e.printStackTrace();
+                System.out.println(e.getCause().getMessage());
+            }
+        }
+        return editAnchorPane;
+    }
+   public AnchorPane getViewAnchorPane(){
+        if(viewAnchorPane == null){
+            try{
+                viewAnchorPane = new FXMLLoader(getClass().getResource("/FXML/View.fxml")).load();
+            }catch (Exception e){
+                e.printStackTrace();
+                System.out.println(e.getCause().getMessage());
+            }
+        }
+        return viewAnchorPane;
+    }
+   public AnchorPane getProjectAnchorPane(){
+        if(projectAnchorPane == null){
+            try{
+                projectAnchorPane = new FXMLLoader(getClass().getResource("/FXML/project.fxml")).load();
+            }catch (Exception e){
+                e.printStackTrace();
+                System.out.println(e.getCause().getMessage());
+            }
+        }
+        return projectAnchorPane;
+    }
+   public AnchorPane getTodoAnchorPane(){
+        if(todoAnchorPane == null){
+            try{
+                todoAnchorPane = new FXMLLoader(getClass().getResource("/FXML/Todo.fxml")).load();
+            }catch (Exception e){
+                e.printStackTrace();
+                System.out.println(e.getCause().getMessage());
+            }
+        }
+        return todoAnchorPane;
+    }
+
 
     //? Show login
     public void showLogin() {

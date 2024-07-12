@@ -89,6 +89,17 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
             addListeners();
+
+            Model.getInstance().getViewFactory().getDashboardSelectedItem().addListener((observable, oldVal,newVal)->{
+                switch (newVal){
+                    case ADD ->BorderPane.setCenter(Model.getInstance().getViewFactory().getAddAnchorPane());
+                    case EDIT ->BorderPane.setCenter(Model.getInstance().getViewFactory().getEditAnchorPane());
+                    case VIEW ->BorderPane.setCenter(Model.getInstance().getViewFactory().getViewAnchorPane());
+                    case PROJECT ->BorderPane.setCenter(Model.getInstance().getViewFactory().getProjectAnchorPane());
+                    case TODO ->BorderPane.setCenter(Model.getInstance().getViewFactory().getTodoAnchorPane());
+
+                }
+            });
     }
 
     //? adding listeners to the dashboard buttons
@@ -102,9 +113,11 @@ public class DashboardController implements Initializable {
     }
 
     private void projectsDashboardButtonClicked() {
+        Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.PROJECT);
     }
 
     private void editDashboardButtonClicked() {
+        Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.EDIT);
     }
 
     private void addDashboardButtonClicked() {
@@ -112,9 +125,11 @@ public class DashboardController implements Initializable {
     }
 
     private void todoDashboardButtonClicked() {
+        Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.TODO);
     }
 
     private void viewDashboardButtonClicked() {
+        Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.VIEW);
     }
     //? Logout
     public void logoutButtonClicked(){
