@@ -133,13 +133,10 @@ public class DashboardController implements Initializable {
     }
     //? Logout
     public void logoutButtonClicked(){
-        /*
-        Model.getInstance().getViewFactory().showLoginWindow();
-        Stage stage = (Stage) logoutButton.getScene().getWindow();
-        stage.close();*/
-        Main.launch();
+        Model.getInstance().getViewFactory().showLogin();
         Stage stage = (Stage) logoutButton.getScene().getWindow();
         stage.close();
+
     }
 
 }
