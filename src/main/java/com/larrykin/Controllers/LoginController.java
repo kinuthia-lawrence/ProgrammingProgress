@@ -82,7 +82,7 @@ public class LoginController{
             stage.close();
         }catch(Exception e){
             e.printStackTrace();
-            e.getCause();
+            System.out.println(e.getCause().getMessage());
         }
     }
 

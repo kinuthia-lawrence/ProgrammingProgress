@@ -26,19 +26,16 @@
     <left>
         <VBox fx:id="leftPane" BorderPane.alignment="CENTER">
             <AnchorPane prefHeight="132.0" prefWidth="205.0">
-                <AnchorPane fx:id="logoImage" prefHeight="132.0" prefWidth="206.0" AnchorPane.leftAnchor="2.0"
-                            AnchorPane.rightAnchor="2.0"/>
+                <AnchorPane fx:id="logoImage" prefHeight="132.0" prefWidth="206.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" />
             </AnchorPane>
             <AnchorPane prefHeight="437.0" prefWidth="191.0">
-                <HBox layoutY="-19.0" prefHeight="39.0" prefWidth="206.0" AnchorPane.leftAnchor="0.0"
-                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <Label fx:id="titleAnchorPane1" alignment="CENTER" prefHeight="50.0" prefWidth="206.0"
-                           text="Dashboard" textFill="#fcfafa">
+                <HBox layoutY="-19.0" prefHeight="39.0" prefWidth="206.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <Label fx:id="titleAnchorPane1" alignment="CENTER" prefHeight="50.0" prefWidth="206.0" text="Dashboard" textFill="#fcfafa">
                         <font>
-                            <Font name="System Bold Italic" size="25.0"/>
+                            <Font name="System Bold Italic" size="25.0" />
                         </font>
                         <HBox.margin>
-                            <Insets/>
+                            <Insets />
                         </HBox.margin>
                     </Label>
                 </HBox>
@@ -57,7 +54,7 @@
                         <Font name="System Bold Italic" size="20.0" />
                     </font>
                 </Button>
-                <Button fx:id="otherDashboardButton" layoutX="34.0" layoutY="249.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="160.0" styleClass="menuAnchorPane" text="OTHER" textFill="#eeeaea" AnchorPane.rightAnchor="0.0">
+                <Button fx:id="todoDashboardButton" layoutX="34.0" layoutY="249.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="160.0" styleClass="menuAnchorPane" text="TODO" textFill="#eeeaea" AnchorPane.rightAnchor="0.0">
                     <font>
                         <Font name="System Bold Italic" size="20.0" />
                     </font>
@@ -67,7 +64,7 @@
                         <Font name="System Bold Italic" size="20.0" />
                     </font>
                 </Button>
-                <Button fx:id="todoDashboardButton" layoutX="55.0" layoutY="377.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="160.0" styleClass="menuAnchorPane" text="TODO" textFill="#eeeaea" AnchorPane.rightAnchor="0.0">
+                <Button fx:id="logoutButton" layoutX="55.0" layoutY="377.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="160.0" styleClass="menuAnchorPane" text="Logout" textFill="#eeeaea" AnchorPane.rightAnchor="0.0">
                     <font>
                         <Font name="System Bold Italic" size="20.0" />
                     </font>
@@ -90,66 +87,53 @@
                 </Label>
             </AnchorPane>
             <AnchorPane prefHeight="50.0">
-                <AnchorPane layoutX="244.0" layoutY="7.0" prefHeight="53.0" prefWidth="407.0"
-                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="-134.0"
-                            AnchorPane.topAnchor="0.0">
-                    <HBox fx:id="searchPane" alignment="TOP_CENTER" layoutX="-9.0" layoutY="12.0" prefHeight="54.0"
-                          prefWidth="345.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="65.0"
-                          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane layoutX="244.0" layoutY="7.0" prefHeight="53.0" prefWidth="407.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="-134.0" AnchorPane.topAnchor="0.0">
+                    <HBox fx:id="searchPane" alignment="TOP_CENTER" layoutX="-9.0" layoutY="12.0" prefHeight="54.0" prefWidth="345.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <styleClass>
-                            <String fx:value="search-box"/>
-                            <String fx:value="shadow"/>
+                            <String fx:value="search-box" />
+                            <String fx:value="shadow" />
                         </styleClass>
-                        <ComboBox fx:id="searchComboBox" layoutX="14.0" layoutY="3.0" prefHeight="42.0"
-                                  prefWidth="101.0" promptText="Java"/>
-                        <TextField fx:id="searchTextField" prefHeight="36.0" prefWidth="181.0"
-                                   promptText="Type here to search" styleClass="transparent">
+                        <ComboBox fx:id="searchComboBox" layoutX="14.0" layoutY="3.0" prefHeight="42.0" prefWidth="101.0" promptText="Java" />
+                        <TextField fx:id="searchTextField" prefHeight="36.0" prefWidth="181.0" promptText="Type here to search" styleClass="transparent">
                             <HBox.margin>
-                                <Insets bottom="5.0" left="10.0" top="10.0"/>
+                                <Insets bottom="5.0" left="10.0" top="10.0" />
                             </HBox.margin>
                             <font>
-                                <Font size="11.0"/>
+                                <Font size="11.0" />
                             </font>
                         </TextField>
                         <HBox prefHeight="36.0" prefWidth="44.0">
-                            <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="46.0"
-                                    styleClass="transparent">
+                            <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="46.0" styleClass="transparent">
                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true"
-                                               preserveRatio="true">
-                                        <Image url="@../IMAGES/search.png"/>
+                                    <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                        <Image url="@../IMAGES/search.png" />
                                     </ImageView>
                                 </graphic>
                             </Button>
                         </HBox>
                     </HBox>
-                    <Button fx:id="notificationButton" layoutX="29.0" layoutY="-13.0" mnemonicParsing="false"
-                            prefHeight="54.0" prefWidth="43.0" styleClass="transparent" AnchorPane.bottomAnchor="0.0"
-                            AnchorPane.topAnchor="0.0">
+                    <Button fx:id="notificationButton" layoutX="29.0" layoutY="-13.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="43.0" styleClass="transparent" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <graphic>
-                            <ImageView fx:id="notificationBellIcon" fitHeight="53.0" fitWidth="24.0"
-                                       pickOnBounds="true" preserveRatio="true">
-                                <Image url="@../IMAGES/notification.png"/>
+                            <ImageView fx:id="notificationBellIcon" fitHeight="53.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                <Image url="@../IMAGES/notification.png" />
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Label fx:id="notificationCountLabel" alignment="TOP_CENTER" layoutX="17.0" layoutY="10.0"
-                           prefHeight="26.0" prefWidth="34.0" text="10" textFill="#eb2a03">
+                    <Label fx:id="notificationCountLabel" alignment="TOP_CENTER" layoutX="17.0" layoutY="10.0" prefHeight="26.0" prefWidth="34.0" text="10" textFill="#eb2a03">
                         <font>
-                            <Font size="13.0"/>
+                            <Font size="13.0" />
                         </font>
                     </Label>
                 </AnchorPane>
-                <MenuBar layoutX="14.0" layoutY="15.0" prefHeight="53.0" prefWidth="265.0" AnchorPane.bottomAnchor="0.0"
-                         AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <MenuBar layoutX="14.0" layoutY="15.0" prefHeight="53.0" prefWidth="265.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <Menu mnemonicParsing="false" text="File">
-                        <MenuItem mnemonicParsing="false" text="Close"/>
+                        <MenuItem mnemonicParsing="false" text="Close" />
                     </Menu>
                     <Menu mnemonicParsing="false" text="Edit">
-                        <MenuItem mnemonicParsing="false" text="Delete"/>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
                     </Menu>
                     <Menu mnemonicParsing="false" text="Help">
-                        <MenuItem mnemonicParsing="false" text="About"/>
+                        <MenuItem mnemonicParsing="false" text="About" />
                     </Menu>
                 </MenuBar>
             </AnchorPane>
