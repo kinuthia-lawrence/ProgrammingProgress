@@ -78,10 +78,10 @@ public class LoginController {
             verifyLoginCredentials(email, password);
         } else {
             alertLabel.setText("Please enter your email and password");
-            if( passwordField.getText().isBlank()){
+            if (passwordField.getText().isBlank()) {
                 alertLabel.setText("Please enter your password");
             }
-            if( emailTextfield.getText().isBlank()){
+            if (emailTextfield.getText().isBlank()) {
                 alertLabel.setText("Please enter your email");
             }
         }
@@ -89,9 +89,10 @@ public class LoginController {
         KeyCombination keyCombination = new KeyCodeCombination(KeyCode.E, KeyCombination.SHIFT_DOWN);
         loginButton.getScene().getAccelerators().put(keyCombination, this::dashboard);
     }
-    private void verifyLoginCredentials(String email,String password) {
+
+    private void verifyLoginCredentials(String email, String password) {
         //create a new instance of the database connection
-         DatabaseConn connectNow = new DatabaseConn();
+        DatabaseConn connectNow = new DatabaseConn();
         Connection connectDB = connectNow.getConnection();
 
         //query to check if the login credentials are correct
