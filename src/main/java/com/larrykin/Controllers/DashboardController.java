@@ -1,9 +1,7 @@
 package com.larrykin.Controllers;
 
-import com.larrykin.Main;
 import com.larrykin.Models.Model;
 import com.larrykin.Views.DashboardOptions;
-import com.larrykin.Views.ViewFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -90,6 +88,7 @@ public class DashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
             addListeners();
 
+        BorderPane.setCenter(Model.getInstance().getViewFactory().getViewAnchorPane());
             Model.getInstance().getViewFactory().getDashboardSelectedItem().addListener((observable, oldVal,newVal)->{
                 switch (newVal){
                     case ADD ->BorderPane.setCenter(Model.getInstance().getViewFactory().getAddAnchorPane());
@@ -140,3 +139,4 @@ public class DashboardController implements Initializable {
     }
 
 }
+
