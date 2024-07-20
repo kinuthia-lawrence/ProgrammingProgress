@@ -22,3 +22,10 @@
     -fx-background-radius: 30;
     -fx-background-color: rgba(0,0,0,0);
 }
+#refreshButton{
+    -fx-background-radius: 30;
+    -fx-background-color:  #AAAAAA;
+}
+#filterButton:hover{
+    -fx-background-color: #ffffff;
+}

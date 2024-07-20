@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="viewAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="679.0" stylesheets="@../STYLES/View.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.larrykin.Controllers.ViewController">
+<AnchorPane fx:id="viewAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="679.0" stylesheets="@../STYLES/View.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.larrykin.Controllers.ViewController">
     <children>
         <Label layoutX="27.0" layoutY="14.0" prefHeight="42.0" prefWidth="150.0" text="VIEW  PROJECTS" AnchorPane.leftAnchor="25.0">
             <font>
@@ -29,5 +24,19 @@
             </Button>
         </HBox>
       <TableView fx:id="projectTableView" prefHeight="445.0" prefWidth="629.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" />
+      <Button fx:id="refreshButton" layoutX="616.0" layoutY="61.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="30.0">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../IMAGES/refresh.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="577.0" layoutY="72.0" text="refresh">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

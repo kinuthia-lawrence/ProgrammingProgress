@@ -1,6 +1,7 @@
 package com.larrykin.Controllers;
 
 import com.larrykin.Models.Project;
+import com.larrykin.Utils.ComboBoxUtils;
 import com.larrykin.Utils.DatabaseConn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,7 +21,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ViewController implements Initializable {
-
+    @FXML
+    public Button refreshButton;
     @FXML
     private Button filterButton;
 
@@ -46,9 +48,31 @@ public class ViewController implements Initializable {
         //initialize columns and an "Edit" button column
         initializeTableColumns();
         populateTable();
+
+        filterButton.setOnAction(event -> {
+            if (language.getValue() == null && milestone.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Please select a language or a milestone");
+                alert.showAndWait();
+                return;
+            }
+            populateFilteredTable();
+        });
+        refreshButton.setOnAction(event -> {
+            refreshTable();
+        });
     }
 
     private void initializeTableColumns() {
+
+
+
+        //? Populate the comboBoxes using the utility class
+        ComboBoxUtils.populateLanguageComboBox(language);
+        com.larrykin.Utils.ComboBoxUtils.populateMilestoneComboBox(milestone);
+
+        //? Initialize the columns of the table
         TableColumn<Project, String> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new
                 PropertyValueFactory<>("projectID"));
@@ -107,6 +131,8 @@ public class ViewController implements Initializable {
         projectTableView.getColumns().addAll(idColumn, dateColumn, nameColumn, projectDescriptionColumn, futureImprovementColumn, milestoneColumn, milestoneDescriptionColumn, languageColumn, editColumn);
     }
 
+
+
     public void openEditProjectDialog(Project project) {
         /*TODO navigate to edit*/
         System.out.println("Edit button clicked for: " + project.getProjectName());
@@ -150,7 +176,68 @@ public class ViewController implements Initializable {
             e.printStackTrace();
             System.out.println(e.getCause().getMessage());
         }
-
         return projects;
+    }
+
+public void refreshTable() {
+    language.setValue(null);
+    milestone.setValue(null);
+
+    projectTableView.getItems().clear();
+    projectTableView.getItems().addAll(getProjectsFromDatabase());
+}
+
+    //? Filter the table based on the selected language and milestone
+    public void populateFilteredTable() {
+        projectTableView.getItems().clear();
+        projectTableView.getItems().addAll(filteredProjects());
+    }
+    private List<Project> filteredProjects() {
+        String selectedLanguage = language.getValue();
+        String selectedMilestone = milestone.getValue();
+
+        /*TODO fetch from the database, return a list of projects*/
+        DatabaseConn connectNow = new DatabaseConn();
+        Connection connectDB = connectNow.getConnection();
+
+        List<Project> projects = new ArrayList<>();
+
+        try {
+            Statement stmt = connectDB.createStatement();
+            ResultSet resultSet = null;
+
+            if(selectedLanguage != null && selectedMilestone != null) {
+                 resultSet = stmt.executeQuery("SELECT * FROM projects WHERE language = '" + selectedLanguage + "' AND milestone = '" + selectedMilestone + "'");
+            } else if(selectedLanguage != null) {
+                 resultSet = stmt.executeQuery("SELECT * FROM projects WHERE language = '" + selectedLanguage+ "'");
+            } else if(selectedMilestone != null) {
+                 resultSet = stmt.executeQuery("SELECT * FROM projects WHERE milestone = '" + selectedMilestone+ "'");
+            }
+
+            //clear the table
+            projectTableView.getItems().clear();
+
+            //add the filtered projects to the table
+            while (resultSet.next()) {
+                Project project = new Project(resultSet.getObject("id"), resultSet.getString("date"), resultSet.getString("project_name"), resultSet.getString("project_description"), resultSet.getString("future_improvements"), resultSet.getString("milestone"), resultSet.getString("milestone_description"), resultSet.getString("language"));
+
+                project.setProjectID(resultSet.getString("id"));
+                project.setDate(resultSet.getString("date"));
+                project.setProjectName(resultSet.getString("project_name"));
+                project.setProjectDescription(resultSet.getString("project_description"));
+                project.setFutureImprovements(resultSet.getString("future_improvements"));
+                project.setMilestone(resultSet.getString("milestone"));
+                project.setMilestoneDescription(resultSet.getString("milestone_description"));
+                project.setLanguage(resultSet.getString("language"));
+
+                projects.add(project);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getCause().getMessage());
+        }
+        return projects;
+
     }
 }
