@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="viewAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="679.0" stylesheets="@../STYLES/View.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.larrykin.Controllers.ViewController">
+<AnchorPane fx:id="viewAnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="525.0" prefWidth="678.0" stylesheets="@../STYLES/View.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.larrykin.Controllers.ViewController">
     <children>
         <Label layoutX="27.0" layoutY="14.0" prefHeight="42.0" prefWidth="150.0" text="VIEW  PROJECTS" AnchorPane.leftAnchor="25.0">
             <font>
                 <Font name="System Bold Italic" size="18.0" />
             </font>
         </Label>
-        <HBox fx:id="filterbox" alignment="CENTER" layoutX="132.0" layoutY="56.0" prefHeight="50.0" prefWidth="407.0">
+        <HBox fx:id="filterbox" alignment="CENTER" layoutX="132.0" layoutY="56.0" prefHeight="50.0" prefWidth="407.0" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="56.0">
             <ComboBox fx:id="milestone" prefHeight="40.0" prefWidth="203.0" promptText="Milestone" />
             <ComboBox fx:id="language" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="150.0" promptText="Language" />
             <Button fx:id="filterButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="30.0">
@@ -23,20 +23,24 @@
                 </graphic>
             </Button>
         </HBox>
-      <TableView fx:id="projectTableView" prefHeight="445.0" prefWidth="629.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" />
-      <Button fx:id="refreshButton" layoutX="616.0" layoutY="61.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="30.0">
-         <graphic>
-            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../IMAGES/refresh.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Label layoutX="577.0" layoutY="72.0" text="refresh">
-         <font>
-            <Font name="System Italic" size="13.0" />
-         </font>
-      </Label>
+      <TableView fx:id="projectTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0" />
+      <HBox alignment="CENTER" prefHeight="42.0" prefWidth="94.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="56.0">
+         <children>
+            <Label text="refresh">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+            </Label>
+            <Button fx:id="refreshButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="30.0">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../IMAGES/refresh.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>

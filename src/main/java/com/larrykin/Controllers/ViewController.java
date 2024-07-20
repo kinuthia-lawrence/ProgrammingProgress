@@ -114,7 +114,6 @@ public class ViewController implements Initializable {
                 editButton.setOnAction(event -> {
                     Project project = getTableView().getItems().get(getIndex());
                     openEditProjectDialog(project);
-                    System.out.println("Edit button clicked for: " + project.getProjectName());
                 });
             }
 
