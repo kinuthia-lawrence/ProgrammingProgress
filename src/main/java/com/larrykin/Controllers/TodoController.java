@@ -56,8 +56,6 @@ public class TodoController implements Initializable {
     DatabaseConn connectNow = new DatabaseConn();
 
 
-    DashboardController dashboardController = new DashboardController();
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeTableColumns();
@@ -126,7 +124,6 @@ public class TodoController implements Initializable {
                         alert.showAndWait();
 
                         populateTable(); // Refresh the table view
-//                    dashboardController.handleNotificationCount();
                     } else {
                         System.out.println("Todo could not be saved.");
                     }

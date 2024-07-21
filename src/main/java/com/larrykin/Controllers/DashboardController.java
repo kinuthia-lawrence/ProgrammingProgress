@@ -124,7 +124,6 @@ public class DashboardController implements Initializable {
         searchComboBox.setValue("Java");
 
         addListeners();
-//        handleNotificationCount();
 
         BorderPane.setCenter(Model.getInstance().getViewFactory().getViewAnchorPane());
         Model.getInstance().getViewFactory().getDashboardSelectedItem().addListener((observable, oldVal, newVal) -> {
@@ -149,30 +148,29 @@ public class DashboardController implements Initializable {
         searchButton.setOnAction(event -> performSearch());
         logoutButton.setOnAction(event -> logoutButtonClicked());
         notificationButton.setOnAction(event -> notificationButtonClicked());
+        handleNotificationCount();
     }
 
-    public void handleNotificationCount() {
-        Platform.runLater(() -> {
-
-            try {
-                Connection connectDB = connectNow.getConnection(); //! try with resources closes the connection automatically
-                String query = "SELECT COUNT(*) FROM todos";
-                PreparedStatement pstmt = connectDB.prepareStatement(query);
-                ResultSet rs = pstmt.executeQuery();
-
+  public synchronized void handleNotificationCount() {
+    new Thread(() -> {
+        try {
+            Connection connectDB = connectNow.getConnection();
+            String query = "SELECT COUNT(*) FROM todos";
+            try (PreparedStatement pstmt = connectDB.prepareStatement(query);
+                 ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    this.notificationCount = rs.getInt(1);
-                    notificationCountLabel.setText(String.valueOf(this.notificationCount));
-                    System.out.println("Notification count is updated to " + this.notificationCount);
+                    int count = rs.getInt(1);
+                    Platform.runLater(() -> {
+                        notificationCountLabel.setText(String.valueOf(count));
+                    });
                 }
-            } catch (Exception e) {
-                System.out.println("Error updating notification count: " + e.getMessage());
-                e.printStackTrace();
-            } finally {
             }
-
-        });
-    }
+        } catch (Exception e) {
+            System.out.println("Error updating notification count: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }).start();
+}
 
     private void notificationButtonClicked() {
         Alert showCount = new Alert(Alert.AlertType.INFORMATION);
@@ -194,22 +192,27 @@ public class DashboardController implements Initializable {
 
     private void projectsDashboardButtonClicked() {
         Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.PROJECT);
+        handleNotificationCount();
     }
 
     private void editDashboardButtonClicked() {
         Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.EDIT);
+        handleNotificationCount();
     }
 
     private void addDashboardButtonClicked() {
         Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.ADD);
+        handleNotificationCount();
     }
 
     private void todoDashboardButtonClicked() {
         Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.TODO);
+        handleNotificationCount();
     }
 
     private void viewDashboardButtonClicked() {
         Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.VIEW);
+        handleNotificationCount();
     }
 
     //? Logout
