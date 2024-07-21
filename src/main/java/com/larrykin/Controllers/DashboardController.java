@@ -94,7 +94,7 @@ public class DashboardController implements Initializable {
 
         addListeners();
 
-        BorderPane.setCenter(Model.getInstance().getViewFactory().getAddAnchorPane());
+        BorderPane.setCenter(Model.getInstance().getViewFactory().getViewAnchorPane());
         Model.getInstance().getViewFactory().getDashboardSelectedItem().addListener((observable, oldVal, newVal) -> {
             switch (newVal) {
                 case ADD -> BorderPane.setCenter(Model.getInstance().getViewFactory().getAddAnchorPane());
@@ -124,6 +124,7 @@ public class DashboardController implements Initializable {
         String searchText = searchTextField.getText();
         String selectedLanguage = searchComboBox.getValue();
 
+        Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.VIEW);
         viewController.searchInProjects(searchText, selectedLanguage);
 
 
