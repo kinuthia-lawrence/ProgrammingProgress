@@ -144,8 +144,19 @@ public class ViewController implements Initializable {
 
 
     public void openEditProjectDialog(Project project) {
-        /*TODO navigate to edit*/
-        System.out.println("Edit button clicked for: " + project.getProjectName());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Edit Project");
+        alert.setHeaderText("Are you sure you want to edit " + project.getProjectName()+ " with ID: " + project.getProjectID() + "?");
+        alert.setContentText("This action cannot be undone.");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+              //?OpenEdit fxml and pass the project
+                System.out.println("Opening edit dialog for project: " + project.getProjectName() + " with ID: " + project.getProjectID());
+            } else if (response == ButtonType.CANCEL) {
+                alert.close();
+            }
+        });
 
     }
 

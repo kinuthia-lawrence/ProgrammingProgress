@@ -5,6 +5,8 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -49,4 +51,14 @@
         </font>
     </Label>
    <ComboBox fx:id="chooseProjectComboBox" layoutX="222.0" layoutY="83.0" prefHeight="42.0" prefWidth="230.0" promptText="Programming Progress" />
+   <Button fx:id="Search" layoutX="620.0" layoutY="99.0" mnemonicParsing="false">
+      <graphic>
+         <ImageView fitHeight="20.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../IMAGES/search.png" />
+            </image>
+         </ImageView>
+      </graphic>
+   </Button>
+   <Label layoutX="622.0" layoutY="75.0" prefHeight="17.0" prefWidth="40.0" text="Search" />
 </AnchorPane>
