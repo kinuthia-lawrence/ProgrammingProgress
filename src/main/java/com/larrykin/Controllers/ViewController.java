@@ -45,7 +45,6 @@ public class ViewController implements Initializable {
 
     //? Database connection
     DatabaseConn connectNow = new DatabaseConn();
-    Connection connectDB = connectNow.getConnection();
 
 
     @Override
@@ -163,6 +162,8 @@ public class ViewController implements Initializable {
         List<Project> projects = new ArrayList<>();
 
         try {
+            Connection connectDB = connectNow.getConnection(); //! try with resources closes the connection automatically
+
             Statement stmt = connectDB.createStatement();
             ResultSet resultSet = stmt.executeQuery("SELECT * FROM projects");
 
@@ -209,6 +210,8 @@ public class ViewController implements Initializable {
         List<Project> projects = new ArrayList<>();
 
         try {
+            Connection connectDB = connectNow.getConnection(); //! try with resources closes the connection automatically
+
             Statement stmt = connectDB.createStatement();
             ResultSet resultSet = null;
 
@@ -253,6 +256,8 @@ public class ViewController implements Initializable {
 
         //? If the search text is empty, show all projects, if not, show the projects that match the search text
         try {
+            Connection connectDB = connectNow.getConnection(); //! try with resources closes the connection automatically
+
             Statement stmt = connectDB.createStatement();
             ResultSet resultSet = null;
 

@@ -45,6 +45,8 @@ public class AddController implements Initializable {
     @FXML
     private Button saveButton;
 
+    //create a new instance of the database connection
+    DatabaseConn connectNow = new DatabaseConn();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -74,9 +76,7 @@ public class AddController implements Initializable {
     }
 
     private void addProject() {
-        //create a new instance of the database connection
-        DatabaseConn connectNow = new DatabaseConn();
-        Connection connectDB = connectNow.getConnection();
+        Connection connectDB = connectNow.getConnection(); //! try with resources closes the connection automatically
 
         //get the values from the fields
         String projectName = projectNameTextField.getText();

@@ -62,6 +62,8 @@ public class LoginController {
     public static String email;
     public static String password;
 
+    //create a new instance of the database connection
+    DatabaseConn connectNow = new DatabaseConn();
 
     //! close window when cancel button is clicked
     public void cancelButtonOnAction(ActionEvent actionEvent) {
@@ -91,14 +93,14 @@ public class LoginController {
     }
 
     private void verifyLoginCredentials(String email, String password) {
-        //create a new instance of the database connection
-        DatabaseConn connectNow = new DatabaseConn();
-        Connection connectDB = connectNow.getConnection();
+
 
         //query to check if the login credentials are correct
         String verifyLogin = "SELECT count(1) FROM users WHERE email = '" + email + "' AND password = '" + password + "'";
 
         try {
+            Connection connectDB = connectNow.getConnection(); //! try with resources closes the connection automatically
+
             Statement statement = connectDB.createStatement(); //create a statement object
             ResultSet queryResult = statement.executeQuery(verifyLogin); //execute the query
 

@@ -17,10 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -47,12 +44,19 @@ public class TodoController implements Initializable {
     @FXML
     private TableView<Todos> todoTableView;
 
+    //? Maximum number of retries for database operations
+    final int MAX_RETRIES = 3;
+    int attempt = 0;
+    boolean updated = false;
+
     //? Keep track of the todos being edited
     private Todos currentEditingTodo = null;
 
     //? Database connection
     DatabaseConn connectNow = new DatabaseConn();
-    Connection connectDB = connectNow.getConnection();
+
+
+    DashboardController dashboardController = new DashboardController();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,7 +68,8 @@ public class TodoController implements Initializable {
     }
 
     private void saveTodo() {
-        if (datePicker.getValue() == null || titleTextField.getText().isEmpty() || descriptionTextArea.getText().isEmpty()) {
+        LocalDate date = datePicker.getValue();
+        if (date == null || titleTextField.getText().isEmpty() || descriptionTextArea.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("All fields are required.");
@@ -73,40 +78,106 @@ public class TodoController implements Initializable {
             alert.showAndWait();
             return;
         }
-        // Save the todos to the database
-        try {
-            String insertQuery = "INSERT INTO todos (date, title, description) VALUES (?, ?, ?)";
-            PreparedStatement pstmt = connectDB.prepareStatement(insertQuery);
+        String title = titleTextField.getText();
+        String description = descriptionTextArea.getText();
+        if (titleExists(title)) {
+            // Notify the user that the title already exists
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Duplicate Title");
+            alert.setContentText("A todo with this title already exists. Please choose a different title.");
+            alert.showAndWait();
+        } else {
 
-            // Assuming the date is stored in a 'yyyy-MM-dd' format in the database
-            pstmt.setString(1, datePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            pstmt.setString(2, titleTextField.getText());
-            pstmt.setString(3, descriptionTextArea.getText());
-
-            int rowsAffected = pstmt.executeUpdate();
-
-            if (rowsAffected > 0) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Todo Saved");
-                alert.setHeaderText("Todo saved successfully.");
-
-                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), evt -> alert.close()));
-                timeline.setCycleCount(1);
-                timeline.play();
-
-                alert.showAndWait();
-
-                populateTable(); // Refresh the table view
-            } else {
-                System.out.println("Todo could not be saved.");
+            //! Set busy_timeout to avoid improper database locking (immediate SQLITE_BUSY errors)
+            try (Statement stmt = connectNow.getConnection().createStatement()) {
+                stmt.execute("PRAGMA busy_timeout = 3000;"); // Wait up to 3000 milliseconds
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Error setting busy_timeout: " + e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println("Error saving todo: " + e.getMessage());
-            e.printStackTrace();
-        } finally {
-            clearForm();
+
+            while (attempt < MAX_RETRIES && !updated) {
+                // Save the todos to the database
+//                System.out.println("Saving todoo...");
+                try {
+//                    System.out.println("Attempt: " + attempt);
+                    Connection connectDB = connectNow.getConnection(); //! try with resources closes the connection automatically
+                    String insertQuery = "INSERT INTO todos (date, title, description) VALUES (?, ?, ?)";
+                    PreparedStatement pstmt = connectDB.prepareStatement(insertQuery);
+
+                    // Assuming the date is stored in a 'yyyy-MM-dd' format in the database
+                    pstmt.setString(1, date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                    pstmt.setString(2, title);
+                    pstmt.setString(3, description);
+
+                    int rowsAffected = pstmt.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        updated = true;
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Todo Saved");
+                        alert.setHeaderText("Todo saved successfully.");
+
+                        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), evt -> alert.close()));
+                        timeline.setCycleCount(1);
+                        timeline.play();
+
+                        alert.showAndWait();
+
+                        populateTable(); // Refresh the table view
+//                    dashboardController.handleNotificationCount();
+                    } else {
+                        System.out.println("Todo could not be saved.");
+                    }
+                } catch (SQLException e) {
+                    if (e.getMessage().contains("[SQLITE_BUSY]")) {
+                        System.out.println("Database is busy, retrying...");
+                        try {
+                            Thread.sleep(1000); // Wait for 1 second before retrying
+                        } catch (InterruptedException ie) {
+                            Thread.currentThread().interrupt();
+                        }
+                    } else {
+                        System.out.println("Error saving todo: " + e.getMessage());
+                        e.printStackTrace();
+                        break; // Break on non-SQLITE_BUSY errors
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error saving todo: " + e.getMessage());
+                    e.printStackTrace();
+                } finally {
+                    clearForm();
+                    saveButton.setOnAction(event -> {
+                        updated = false;
+                        saveTodo();
+                    });
+                }
+                attempt++;
+            }
+
+            if (!updated) {
+                System.out.println("Failed to update database after " + MAX_RETRIES + " attempts.");
+            }else {
+//                System.out.println("Todoo saved successfully.");
+            }
         }
 
+    }
+    private boolean titleExists(String title) {
+        final String query = "SELECT COUNT(*) FROM todos WHERE title = ?";
+        try (Connection connectDB = connectNow.getConnection();
+             PreparedStatement pstmt = connectDB.prepareStatement(query)) {
+            pstmt.setString(1, title);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private void initializeTableColumns() {
@@ -197,7 +268,6 @@ public class TodoController implements Initializable {
     }
 
 
-
     private void performEdit(Todos todo) {
         // Set the UI components with the values from the todo
         datePicker.setValue(LocalDate.parse(todo.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
@@ -218,6 +288,7 @@ public class TodoController implements Initializable {
         }
 
         try {
+            Connection connectDB = connectNow.getConnection(); //! try with resources closes the connection automatically
             String updateQuery = "UPDATE todos SET date = ?, title = ?, description = ? WHERE id = ?";
             PreparedStatement pstmt = connectDB.prepareStatement(updateQuery);
 
@@ -282,6 +353,7 @@ public class TodoController implements Initializable {
 
     private void deleteTodoFromDatabase(Todos todo) {
         try {
+            Connection connectDB = connectNow.getConnection(); //! try with resources closes the connection automatically
             // Assuming todoID is of type Object and needs to be cast to the appropriate type, e.g., Integer or String
             String deleteQuery = "DELETE FROM todos WHERE id = ?";
             PreparedStatement pstmt = connectDB.prepareStatement(deleteQuery);
@@ -292,7 +364,7 @@ public class TodoController implements Initializable {
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected > 0) {
-               Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Todo Deleted");
                 alert.setHeaderText("Todo deleted successfully.");
 
@@ -325,6 +397,7 @@ public class TodoController implements Initializable {
         List<Todos> todos = new ArrayList<>();
 
         try {
+            Connection connectDB = connectNow.getConnection(); //! try with resources closes the connection automatically
             Statement statement = connectDB.createStatement();
             String query = "SELECT * FROM todos";
             ResultSet resultSet = statement.executeQuery(query);
