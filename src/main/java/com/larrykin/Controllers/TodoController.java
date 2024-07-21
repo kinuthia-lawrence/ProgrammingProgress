@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -131,9 +132,42 @@ public class TodoController implements Initializable {
         System.out.println("Edit todo: " + todo);
     }
     private void markAsDone(Todos todo) {
-        /*TODO mark done*/
-        System.out.println("Mark as done: " + todo);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Mark Todo as Done");
+        alert.setHeaderText("Are you sure you want to mark this todo as done? and Delete it?");
+        alert.setContentText("This action cannot be undone.");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                deleteTodoFromDatabase(todo);
+            }else if (response == ButtonType.CANCEL){
+                alert.close();
+            }
+        });
     }
+  private void deleteTodoFromDatabase(Todos todo) {
+    try {
+        // Assuming todoID is of type Object and needs to be cast to the appropriate type, e.g., Integer or String
+        String deleteQuery = "DELETE FROM todos WHERE id = ?";
+        PreparedStatement pstmt = connectDB.prepareStatement(deleteQuery);
+
+        // Set the todoID parameter; casting may vary based on your ID type
+        pstmt.setObject(1, todo.getTodoID()); // Ensure getTodoID() returns the correct type or is cast appropriately
+
+        int rowsAffected = pstmt.executeUpdate();
+
+        if (rowsAffected > 0) {
+            System.out.println("Todo marked as done and deleted successfully.");
+            // Optionally, refresh the table view here to reflect the deletion
+            populateTable();
+        } else {
+            System.out.println("Todo could not be found or deleted.");
+        }
+    } catch (Exception e) {
+        System.out.println("Error deleting todo: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
 
     private void populateTable() {
         /*TODO populate table*/
