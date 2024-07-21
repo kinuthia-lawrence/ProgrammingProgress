@@ -4,7 +4,9 @@ import com.larrykin.Models.Model;
 import com.larrykin.Utils.ComboBoxUtils;
 import com.larrykin.Views.DashboardOptions;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -16,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -84,7 +87,26 @@ public class DashboardController implements Initializable {
     @FXML
     private Button viewDashboardButton;
 
-    ViewController viewController = new ViewController();
+    private ViewController viewController;
+
+    public DashboardController() {
+
+        //? Instantiate the view controller using FXMLLoader
+        try {
+            // Step 1: Create an FXMLLoader instance and set the location of the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/View.fxml"));
+
+            // Step 2: Load the FXML file to initialize the ViewController and its components
+            Parent view = loader.load(); // This line automatically creates an instance of ViewController and initializes it
+
+            // Step 3: Get the ViewController instance from the loader if you need to use it
+            viewController = loader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception or log it
+        }
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -125,9 +147,8 @@ public class DashboardController implements Initializable {
         String selectedLanguage = searchComboBox.getValue();
 
         Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.VIEW);
-        viewController.searchInProjects(searchText, selectedLanguage);
-
-
+        viewController.manualInitialize();
+        viewController.populateSearchedData(selectedLanguage, searchText);
     }
 
     private void projectsDashboardButtonClicked() {
