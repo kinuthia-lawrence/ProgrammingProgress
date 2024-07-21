@@ -61,4 +61,9 @@
       </graphic>
    </Button>
    <Label layoutX="622.0" layoutY="75.0" prefHeight="17.0" prefWidth="40.0" text="Search" />
+   <Label alignment="CENTER" layoutX="273.0" layoutY="51.0" prefHeight="25.0" prefWidth="679.0" text="Choose Project Name the Press search. UPDATE  then save by pressing Update button" textFill="#00f204" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <font>
+         <Font name="System Bold Italic" size="11.0" />
+      </font>
+   </Label>
 </AnchorPane>

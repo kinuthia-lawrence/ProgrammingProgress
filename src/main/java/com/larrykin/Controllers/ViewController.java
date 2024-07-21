@@ -1,8 +1,10 @@
 package com.larrykin.Controllers;
 
+import com.larrykin.Models.Model;
 import com.larrykin.Models.Project;
 import com.larrykin.Utils.ComboBoxUtils;
 import com.larrykin.Utils.DatabaseConn;
+import com.larrykin.Views.DashboardOptions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,6 +48,7 @@ public class ViewController implements Initializable {
     //? Database connection
     DatabaseConn connectNow = new DatabaseConn();
 
+    EditController editController = new EditController();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -152,6 +155,8 @@ public class ViewController implements Initializable {
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
               //?OpenEdit fxml and pass the project
+                Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.EDIT);
+                editController.updateProject(project);
                 System.out.println("Opening edit dialog for project: " + project.getProjectName() + " with ID: " + project.getProjectID());
             } else if (response == ButtonType.CANCEL) {
                 alert.close();

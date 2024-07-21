@@ -289,7 +289,6 @@ public class TodoController implements Initializable {
             String updateQuery = "UPDATE todos SET date = ?, title = ?, description = ? WHERE id = ?";
             PreparedStatement pstmt = connectDB.prepareStatement(updateQuery);
 
-            // Assuming the date is stored in a 'yyyy-MM-dd' format in the database
             pstmt.setString(1, datePicker.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             pstmt.setString(2, titleTextField.getText());
             pstmt.setString(3, descriptionTextArea.getText());
@@ -310,7 +309,10 @@ public class TodoController implements Initializable {
 
                 populateTable(); // Refresh the table view
             } else {
-                System.out.println("Todo could not be updated.");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Todo could not be updated.");
+                alert.showAndWait();
             }
         } catch (Exception e) {
             System.out.println("Error updating todo: " + e.getMessage());

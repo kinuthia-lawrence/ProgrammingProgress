@@ -24,6 +24,17 @@ public class Project {
         this.language = new SimpleStringProperty(language);
     }
 
+    public Project() {
+    this.projectID = new SimpleObjectProperty<>();
+    this.date = new SimpleStringProperty("");
+    this.projectName = new SimpleStringProperty("");
+    this.projectDescription = new SimpleStringProperty("");
+    this.futureImprovements = new SimpleStringProperty("");
+    this.milestone = new SimpleStringProperty("");
+    this.milestoneDescription = new SimpleStringProperty("");
+    this.language = new SimpleStringProperty("");
+}
+
     // Getters and Property Accessors
 
     public Object getProjectID() {
