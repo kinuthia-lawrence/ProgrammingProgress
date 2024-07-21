@@ -147,6 +147,7 @@ public class ViewController implements Initializable {
     public void openEditProjectDialog(Project project) {
         /*TODO navigate to edit*/
         System.out.println("Edit button clicked for: " + project.getProjectName());
+
     }
 
     private void populateTable() {
