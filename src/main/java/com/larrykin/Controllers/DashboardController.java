@@ -1,6 +1,7 @@
 package com.larrykin.Controllers;
 
 import com.larrykin.Models.Model;
+import com.larrykin.Utils.ComboBoxUtils;
 import com.larrykin.Views.DashboardOptions;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,7 +64,7 @@ public class DashboardController implements Initializable {
     private Button searchButton;
 
     @FXML
-    private ComboBox<?> searchComboBox;
+    private ComboBox<String> searchComboBox;
 
     @FXML
     private HBox searchPane;
@@ -83,32 +84,49 @@ public class DashboardController implements Initializable {
     @FXML
     private Button viewDashboardButton;
 
+    ViewController viewController = new ViewController();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-            addListeners();
 
-        BorderPane.setCenter(Model.getInstance().getViewFactory().getViewAnchorPane());
-            Model.getInstance().getViewFactory().getDashboardSelectedItem().addListener((observable, oldVal,newVal)->{
-                switch (newVal){
-                    case ADD ->BorderPane.setCenter(Model.getInstance().getViewFactory().getAddAnchorPane());
-                    case EDIT ->BorderPane.setCenter(Model.getInstance().getViewFactory().getEditAnchorPane());
-                    case VIEW ->BorderPane.setCenter(Model.getInstance().getViewFactory().getViewAnchorPane());
-                    case PROJECT ->BorderPane.setCenter(Model.getInstance().getViewFactory().getProjectAnchorPane());
-                    case TODO ->BorderPane.setCenter(Model.getInstance().getViewFactory().getTodoAnchorPane());
+        ComboBoxUtils.populateLanguageComboBox(searchComboBox);
+        searchComboBox.setValue("Java");
 
-                }
-            });
+        addListeners();
+
+        BorderPane.setCenter(Model.getInstance().getViewFactory().getAddAnchorPane());
+        Model.getInstance().getViewFactory().getDashboardSelectedItem().addListener((observable, oldVal, newVal) -> {
+            switch (newVal) {
+                case ADD -> BorderPane.setCenter(Model.getInstance().getViewFactory().getAddAnchorPane());
+                case EDIT -> BorderPane.setCenter(Model.getInstance().getViewFactory().getEditAnchorPane());
+                case VIEW -> BorderPane.setCenter(Model.getInstance().getViewFactory().getViewAnchorPane());
+                case PROJECT -> BorderPane.setCenter(Model.getInstance().getViewFactory().getProjectAnchorPane());
+                case TODO -> BorderPane.setCenter(Model.getInstance().getViewFactory().getTodoAnchorPane());
+
+            }
+        });
     }
 
     //? adding listeners to the dashboard buttons
     private void addListeners() {
         viewDashboardButton.setOnAction(event -> viewDashboardButtonClicked());
-        todoDashboardButton.setOnAction(event ->todoDashboardButtonClicked());
+        todoDashboardButton.setOnAction(event -> todoDashboardButtonClicked());
         addDashboardButton.setOnAction(actionEvent -> addDashboardButtonClicked());
         editDashboardButton.setOnAction(event -> editDashboardButtonClicked());
-        projectsDashboardButton.setOnAction(event ->projectsDashboardButtonClicked());
-        logoutButton.setOnAction(event ->logoutButtonClicked());
+        projectsDashboardButton.setOnAction(event -> projectsDashboardButtonClicked());
+        searchButton.setOnAction(event -> performSearch());
+        logoutButton.setOnAction(event -> logoutButtonClicked());
+    }
+
+    private void performSearch() {
+
+        //? Get the search text and the search type
+        String searchText = searchTextField.getText();
+        String selectedLanguage = searchComboBox.getValue();
+
+        viewController.searchInProjects(searchText, selectedLanguage);
+
+
     }
 
     private void projectsDashboardButtonClicked() {
@@ -130,8 +148,9 @@ public class DashboardController implements Initializable {
     private void viewDashboardButtonClicked() {
         Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.VIEW);
     }
+
     //? Logout
-    public void logoutButtonClicked(){
+    public void logoutButtonClicked() {
         Model.getInstance().getViewFactory().showLogin();
         Stage stage = (Stage) logoutButton.getScene().getWindow();
         stage.close();

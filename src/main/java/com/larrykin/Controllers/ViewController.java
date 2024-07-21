@@ -22,7 +22,8 @@ import java.util.ResourceBundle;
 
 public class ViewController implements Initializable {
     @FXML
-    public Button refreshButton;
+    private Button refreshButton;
+
     @FXML
     private Button filterButton;
 
@@ -30,7 +31,7 @@ public class ViewController implements Initializable {
     private HBox filterbox;
 
     @FXML
-    private TableView<Project> projectTableView;
+    private   TableView<Project> projectTableView;
 
     @FXML
     private AnchorPane viewAnchorPane;
@@ -41,13 +42,17 @@ public class ViewController implements Initializable {
     @FXML
     private ComboBox<String> milestone;
 
+    //? Database connection
+    DatabaseConn connectNow = new DatabaseConn();
+    Connection connectDB = connectNow.getConnection();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         //initialize columns and an "Edit" button column
         initializeTableColumns();
-        populateTable();
+
 
         filterButton.setOnAction(event -> {
             if (language.getValue() == null && milestone.getValue() == null) {
@@ -65,7 +70,6 @@ public class ViewController implements Initializable {
     }
 
     private void initializeTableColumns() {
-
 
 
         //? Populate the comboBoxes using the utility class
@@ -128,8 +132,10 @@ public class ViewController implements Initializable {
             }
         });
         projectTableView.getColumns().addAll(idColumn, dateColumn, nameColumn, projectDescriptionColumn, futureImprovementColumn, milestoneColumn, milestoneDescriptionColumn, languageColumn, editColumn);
-    }
 
+        //? Populate the table with data
+        populateTable();
+    }
 
 
     public void openEditProjectDialog(Project project) {
@@ -147,10 +153,6 @@ public class ViewController implements Initializable {
     }
 
     private List<Project> getProjectsFromDatabase() {
-        /*TODO fetch from the database, return a list of projects*/
-        DatabaseConn connectNow = new DatabaseConn();
-        Connection connectDB = connectNow.getConnection();
-
         List<Project> projects = new ArrayList<>();
 
         try {
@@ -178,26 +180,24 @@ public class ViewController implements Initializable {
         return projects;
     }
 
-public void refreshTable() {
-    language.setValue(null);
-    milestone.setValue(null);
+    public void refreshTable() {
+        language.setValue(null);
+        milestone.setValue(null);
 
-    projectTableView.getItems().clear();
-    projectTableView.getItems().addAll(getProjectsFromDatabase());
-}
+        projectTableView.getItems().clear();
+        projectTableView.getItems().addAll(getProjectsFromDatabase());
+    }
 
     //? Filter the table based on the selected language and milestone
     public void populateFilteredTable() {
         projectTableView.getItems().clear();
         projectTableView.getItems().addAll(filteredProjects());
     }
+
     private List<Project> filteredProjects() {
         String selectedLanguage = language.getValue();
         String selectedMilestone = milestone.getValue();
 
-        /*TODO fetch from the database, return a list of projects*/
-        DatabaseConn connectNow = new DatabaseConn();
-        Connection connectDB = connectNow.getConnection();
 
         List<Project> projects = new ArrayList<>();
 
@@ -205,12 +205,12 @@ public void refreshTable() {
             Statement stmt = connectDB.createStatement();
             ResultSet resultSet = null;
 
-            if(selectedLanguage != null && selectedMilestone != null) {
-                 resultSet = stmt.executeQuery("SELECT * FROM projects WHERE language = '" + selectedLanguage + "' AND milestone = '" + selectedMilestone + "'");
-            } else if(selectedLanguage != null) {
-                 resultSet = stmt.executeQuery("SELECT * FROM projects WHERE language = '" + selectedLanguage+ "'");
-            } else if(selectedMilestone != null) {
-                 resultSet = stmt.executeQuery("SELECT * FROM projects WHERE milestone = '" + selectedMilestone+ "'");
+            if (selectedLanguage != null && selectedMilestone != null) {
+                resultSet = stmt.executeQuery("SELECT * FROM projects WHERE language = '" + selectedLanguage + "' AND milestone = '" + selectedMilestone + "'");
+            } else if (selectedLanguage != null) {
+                resultSet = stmt.executeQuery("SELECT * FROM projects WHERE language = '" + selectedLanguage + "'");
+            } else if (selectedMilestone != null) {
+                resultSet = stmt.executeQuery("SELECT * FROM projects WHERE milestone = '" + selectedMilestone + "'");
             }
 
             //clear the table
@@ -238,5 +238,84 @@ public void refreshTable() {
         }
         return projects;
 
+    }
+
+    public void searchInProjects(String searchLanguage, String searchText) {
+        System.out.println("Searching for: " + searchText + " in " + searchLanguage);
+//        List<Project> projects = new ArrayList<>();
+//
+//        //? If the search text is empty, show all projects, if not, show the projects that match the search text
+//        try {
+//            Statement stmt = connectDB.createStatement();
+//            ResultSet resultSet = null;
+//
+//            if (searchText.isBlank() && searchLanguage == null) {
+//                populateTable();
+////                Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.VIEW);
+//            } else if (searchLanguage != null) {
+//                resultSet = stmt.executeQuery("SELECT * FROM projects WHERE language = '" + searchLanguage + "'");
+//            } else if (searchText != null) {
+//                try {
+//                    String query = "SELECT * FROM projects WHERE project_name LIKE ? OR project_description LIKE ?";
+//                    PreparedStatement pstmt = connectDB.prepareStatement(query);
+//                    pstmt.setString(1, "%" + searchText + "%");
+//                    pstmt.setString(2, "%" + searchText + "%");
+//                    resultSet = pstmt.executeQuery();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            } else if (searchLanguage != null && searchText != null) {
+//                StringBuilder queryBuilder = new StringBuilder("SELECT * FROM projects WHERE ");
+//                ArrayList<String> conditions = new ArrayList<>();
+//
+//                if (searchLanguage != null && !searchLanguage.isEmpty()) {
+//                    conditions.add("language = ?");
+//                }
+//
+//                if (searchText != null && !searchText.isEmpty()) {
+//                    conditions.add("(project_name LIKE ? OR project_description LIKE ?)");
+//                }
+//
+//                queryBuilder.append(String.join(" AND ", conditions));
+//
+//                try (PreparedStatement pstmt = connectDB.prepareStatement(queryBuilder.toString())) {
+//                    int index = 1;
+//                    if (searchLanguage != null && !searchLanguage.isEmpty()) {
+//                        pstmt.setString(index++, searchLanguage);
+//                    }
+//                    if (searchText != null && !searchText.isEmpty()) {
+//                        pstmt.setString(index++, "%" + searchText + "%");
+//                        pstmt.setString(index, "%" + searchText + "%");
+//                    }
+//
+//                    resultSet = pstmt.executeQuery();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            //clear the table
+////            viewDashboardButtonClicked();
+//
+////            projectTableView.getItems().clear();
+////
+////            //add the filtered projects to the table
+////            while (resultSet.next()) {
+////                Project project = new Project(resultSet.getObject("id"), resultSet.getString("date"), resultSet.getString("project_name"), resultSet.getString("project_description"), resultSet.getString("future_improvements"), resultSet.getString("milestone"), resultSet.getString("milestone_description"), resultSet.getString("language"));
+////
+////                project.setProjectID(resultSet.getString("id"));
+////                project.setDate(resultSet.getString("date"));
+////                project.setProjectName(resultSet.getString("project_name"));
+////                project.setProjectDescription(resultSet.getString("project_description"));
+////                project.setFutureImprovements(resultSet.getString("future_improvements"));
+////                project.setMilestone(resultSet.getString("milestone"));
+////                project.setMilestoneDescription(resultSet.getString("milestone_description"));
+////                project.setLanguage(resultSet.getString("language"));
+////
+////                projects.add(project);
+////
+////            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }
