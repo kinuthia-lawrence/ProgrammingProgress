@@ -172,11 +172,21 @@ public class PasswordReset implements Initializable {
                         alert.showAndWait();
 
                         //? Clear the form and disable the form fields
+                        adminEmailTextField.clear();
+                        emailCodeTextField.clear();
+                        enterNewPassword.clear();
+                        confirmNewPassword.clear();
+                        EmailAlert.setText("");
+                        codeAlert.setText("");
+                        EmailAlert.setDisable(true);
+
                         codeAlert.setDisable(true);
                         enterNewPassword.setDisable(true);
                         confirmNewPassword.setDisable(true);
                         emailCodeTextField.setDisable(true);
                         setNewPasswordButton.setDisable(true);
+
+
                     } catch (Exception e) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Password Change Error");
