@@ -126,9 +126,6 @@ public class EditController implements Initializable {
                     //?populate the fields with the project details
                     if (foundProject != null) {
                         try {
-
-                            System.out.println("starting to populate the fields in searchProject method");
-
                             //?populate the fields with the project details
                             String date = rs.getString("date");
                             String projectName = rs.getString("project_name");
@@ -151,11 +148,12 @@ public class EditController implements Initializable {
                             //? Keep track of the current project
                             currentProject = foundProject;
 
+
                             //? Enable the update button
                             updateButton.setDisable(false);
 
                             updateButton.setOnAction(event -> {
-                                updateProjectInDatabase();
+                                updateProjectInDatabase(projectName);
                             });
                         } catch (Exception e) {
                             System.out.println("Error updating nodes values from searchProject: " + e.getMessage());
@@ -210,7 +208,7 @@ public class EditController implements Initializable {
                 updateButton.setDisable(false);
 
                 updateButton.setOnAction(event -> {
-                    updateProjectInDatabase();
+                    updateProjectInDatabase(projectName);
                 });
 
             } catch (Exception e) {
@@ -220,13 +218,13 @@ public class EditController implements Initializable {
         }
     }
 
-    private void updateProjectInDatabase() {
+    private void updateProjectInDatabase(String currentProjectName) {
         System.out.println("inside updateProjectInDatabase method");
+        System.out.println("currentProjectName: " + currentProjectName);
         if (currentProject == null) {
             return;
         }
         try {
-            System.out.println("inside try block of updateProjectInDatabase method");
             Connection connectDB = connectNow.getConnection(); //! try with resources closes the connection automatically
             String query = "UPDATE projects SET project_name = ?, date = ?, language = ?, project_description = ?, future_improvements = ?, milestone = ?, milestone_description = ? WHERE project_name = ?";
 
@@ -239,7 +237,7 @@ public class EditController implements Initializable {
             pstmt.setString(5, futureImprovementTextArea.getText());
             pstmt.setString(6, milestoneComboBox.getValue());
             pstmt.setString(7, milestoneDescription.getText());
-            pstmt.setString(8, currentProject.getProjectName());
+            pstmt.setString(8, currentProjectName);
 
             int rowAffected = pstmt.executeUpdate();
             pstmt.close();
