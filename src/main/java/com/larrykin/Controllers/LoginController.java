@@ -148,6 +148,7 @@ public class LoginController {
             dashboardStage.setTitle(email + "   Programming Progress Tracker");
             Image icon = new Image(getClass().getResourceAsStream("/IMAGES/pexels-cottonbro-6804581.jpg"));
             dashboardStage.getIcons().add(icon);
+            dashboardStage.setFullScreen(true);
             dashboardStage.show();
 
             Stage stage = (Stage) loginButton.getScene().getWindow();
