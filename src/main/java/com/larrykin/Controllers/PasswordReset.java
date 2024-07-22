@@ -4,10 +4,7 @@ import com.larrykin.Utils.CREDENTIALS;
 import com.larrykin.Utils.DatabaseConn;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import javax.mail.*;
@@ -35,13 +32,13 @@ public class PasswordReset implements Initializable {
     private Label codeAlert;
 
     @FXML
-    private TextField confirmNewPassword;
+    private PasswordField confirmNewPassword;
 
     @FXML
     private TextField emailCodeTextField;
 
     @FXML
-    private TextField enterNewPassword;
+    private PasswordField enterNewPassword;
 
     @FXML
     private Button getCodeButton;
