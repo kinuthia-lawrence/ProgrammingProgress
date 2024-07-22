@@ -8,12 +8,15 @@ import com.larrykin.Views.DashboardOptions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,7 +51,8 @@ public class ViewController implements Initializable {
     //? Database connection
     DatabaseConn connectNow = new DatabaseConn();
 
-    EditController editController = new EditController();
+    private EditController editController;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -149,15 +153,26 @@ public class ViewController implements Initializable {
     public void openEditProjectDialog(Project project) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Edit Project");
-        alert.setHeaderText("Are you sure you want to edit " + project.getProjectName()+ " with ID: " + project.getProjectID() + "?");
-        alert.setContentText("This action cannot be undone.");
+        alert.setHeaderText("Are you sure you want to edit " + project.getProjectName() + " in Edit Page?");
+        alert.setContentText("You will be redirected to the Edit Page");
 
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-              //?OpenEdit fxml and pass the project
+                //! Create EditController instance using FXMLLoader
+                try {
+                    // Step 1: Create an FXMLLoader instance and set the location of the FXML file
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/Edit.fxml"));
+                    // Step 2: Load the FXML file to initialize the ViewController and its components
+                    Parent root = loader.load(); // This line automatically creates an instance of ViewController , initializes it and injects @FXML fields
+                    // Step 3: Get the editController instance from the loader if you need to use it
+                    editController = loader.getController();
+                } catch (IOException e) {
+                    System.out.println("Error in loading Edit.fxml in ViewController: " + e.getMessage());
+                    e.printStackTrace();
+                }
+                //? Set the selected item in the dashboard to EDIT
                 Model.getInstance().getViewFactory().getDashboardSelectedItem().set(DashboardOptions.EDIT);
                 editController.updateProject(project);
-                System.out.println("Opening edit dialog for project: " + project.getProjectName() + " with ID: " + project.getProjectID());
             } else if (response == ButtonType.CANCEL) {
                 alert.close();
             }
@@ -351,8 +366,8 @@ public class ViewController implements Initializable {
     }
 
     //? Filter the table based on the selected language and text
-    public void populateSearchedData(String languageSelected,String textSelected) {
+    public void populateSearchedData(String languageSelected, String textSelected) {
         projectTableView.getItems().clear();
-        projectTableView.getItems().addAll(searchInProjects(languageSelected, textSelected ));
+        projectTableView.getItems().addAll(searchInProjects(languageSelected, textSelected));
     }
 }

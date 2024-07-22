@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="editAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="679.0" stylesheets="@../STYLES/Edit.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.larrykin.Controllers.EditController">
+<AnchorPane fx:id="editAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="679.0" stylesheets="@../STYLES/Edit.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.larrykin.Controllers.EditController">
     <DatePicker fx:id="datePicker" layoutX="11.0" layoutY="85.0" prefHeight="42.0" prefWidth="202.0" promptText="Begining Date" AnchorPane.leftAnchor="5.0" />
     <Label layoutX="37.0" layoutY="9.0" prefHeight="42.0" prefWidth="150.0" text="EDIT A PROJECT">
         <font>
@@ -46,7 +51,7 @@
         </font>
     </Label>
    <ComboBox fx:id="chooseProjectComboBox" layoutX="222.0" layoutY="83.0" prefHeight="42.0" prefWidth="230.0" promptText="Enter Project Name" />
-   <Button fx:id="searchButton" layoutX="620.0" layoutY="99.0" mnemonicParsing="false">
+   <Button fx:id="searchButton" layoutX="620.0" layoutY="99.0" mnemonicParsing="false" onAction="#initializeSearch">
       <graphic>
           <ImageView fitHeight="20.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
               <Image url="@../IMAGES/search.png" />

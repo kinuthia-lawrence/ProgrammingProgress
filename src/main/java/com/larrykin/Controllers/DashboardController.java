@@ -106,13 +106,13 @@ public class DashboardController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/View.fxml"));
 
             // Step 2: Load the FXML file to initialize the ViewController and its components
-            Parent view = loader.load(); // This line automatically creates an instance of ViewController and initializes it
+            Parent view = loader.load(); // This line automatically creates an instance of ViewController , initializes it and injects @FXML fields
 
             // Step 3: Get the ViewController instance from the loader if you need to use it
             viewController = loader.getController();
         } catch (IOException e) {
+            System.out.println("Error loading view.fxml in DashboardController: " + e.getMessage());
             e.printStackTrace();
-            // Handle the exception or log it
         }
     }
 

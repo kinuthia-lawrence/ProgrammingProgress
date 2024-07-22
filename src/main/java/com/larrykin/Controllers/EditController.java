@@ -12,7 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+import java.awt.event.ActionEvent;
 import java.net.URL;
+import java.security.PublicKey;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,6 +65,7 @@ public class EditController implements Initializable {
     //? Keep track of the current project
     private Project currentProject = null;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -72,18 +75,25 @@ public class EditController implements Initializable {
         chooseProjectComboBox.setItems(FXCollections.observableArrayList(projectNames));
 
         searchButton.setOnAction(event -> {
-            String selectedProjectName = chooseProjectComboBox.getValue();
-            if (selectedProjectName == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Please select a project");
-                alert.showAndWait();
-            }else{
-                searchProject(selectedProjectName);
-            }
+            initializeSearch();
         });
+
+
     }
 
+    public void initializeSearch() {
+        String selectedProjectName = chooseProjectComboBox.getValue();
+        if (selectedProjectName == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Please select a project");
+            alert.showAndWait();
+        } else {
+            searchProject(selectedProjectName);
+        }
+
+
+    }
 
     //? Fetch the project names.
     public List<String> fetchAllProjectNames() {
@@ -104,9 +114,6 @@ public class EditController implements Initializable {
 
     //? Method to search for a project
     private Project searchProject(String selectedProjectName) {
-
-
-
         Project foundProject = null;
         String query = "SELECT * FROM projects WHERE project_name = ?";
         try (
@@ -170,27 +177,41 @@ public class EditController implements Initializable {
     }
 
 
-    //? Method to perfonm the update
+    //? Method to perform the update
     public void updateProject(Project project) {
         if (project != null) {
             try {
 
-                System.out.println("starting to populate the fields in updateProject method");
                 //?populate the fields with the project details
-                datePicker.setValue(LocalDate.parse(project.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-                chooseProjectComboBox.setValue(project.getProjectName());
-                languageComboBox.setValue(project.getLanguage());
-                projectDescriptionTextArea.setText(project.getProjectDescription());
-                futureImprovementTextArea.setText(project.getFutureImprovements());
-                milestoneComboBox.setValue(project.getMilestone());
-                milestoneComboBox.setValue(project.getMilestoneDescription());
-                milestoneDescription.setText(project.getMilestoneDescription());
+                String date = project.getDate();
+                String projectName = project.getProjectName();
+                String language = project.getLanguage();
+                String projectDescription = project.getProjectDescription();
+                String futureImprovements = project.getFutureImprovements();
+                String milestone = project.getMilestone();
+                String milestoneDesc = project.getProjectDescription();
+
+
+
+                datePicker.setValue(LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                chooseProjectComboBox.setValue(projectName);
+                languageComboBox.setValue(language);
+                projectDescriptionTextArea.setText(projectDescription);
+                futureImprovementTextArea.setText(futureImprovements);
+                milestoneComboBox.setValue(milestone);
+                milestoneDescription.setText(milestoneDesc);
+
+
 
                 //? Keep track of the current project
                 currentProject = project;
 
-                //? save the updated project to the database
-                updateProjectInDatabase();
+                //? Enable the update button
+                updateButton.setDisable(false);
+
+                updateButton.setOnAction(event -> {
+                    updateProjectInDatabase();
+                });
 
             } catch (Exception e) {
                 System.out.println("Error updating nodes values from updateProject: " + e.getMessage());
