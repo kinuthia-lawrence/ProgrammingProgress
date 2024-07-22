@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #8D8D8D;" stylesheets="@../STYLES/passwordReset.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.larrykin.Controllers.CreateAccount">
+   <children>
+      <Label alignment="CENTER" layoutX="49.0" layoutY="43.0" prefHeight="34.0" prefWidth="231.0" text="Create Account" textFill="#fcf8f8">
+         <font>
+            <Font name="System Bold Italic" size="23.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

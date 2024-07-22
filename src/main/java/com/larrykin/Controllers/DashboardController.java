@@ -175,7 +175,7 @@ public class DashboardController implements Initializable {
     private void notificationButtonClicked() {
         Alert showCount = new Alert(Alert.AlertType.INFORMATION);
         showCount.setTitle("Notification");
-        showCount.setHeaderText("You have " + notificationCount + " notifications");
+        showCount.setHeaderText("You have " + notificationCount + " TODO pending");
         showCount.show();
     }
 

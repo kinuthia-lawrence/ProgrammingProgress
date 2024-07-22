@@ -11,7 +11,12 @@ import javafx.stage.StageStyle;
 public class ViewFactory {
 
     private final ObjectProperty dashboardSelectedItem;
+    private final ObjectProperty accountSettingsSelectedItem;
+    //? dashboard anchor panes
     private AnchorPane addAnchorPane, editAnchorPane, viewAnchorPane, projectAnchorPane, todoAnchorPane;
+    //? account settings anchor panes
+    private AnchorPane helpAnchorPane, contactDeveloperAnchorPane, createAccountAnchorPane, resetPasswordAnchorPane;
+
 
 
     //?constructor
@@ -19,15 +24,16 @@ public class ViewFactory {
 
     public ViewFactory() {
         this.dashboardSelectedItem = new SimpleObjectProperty();
+        this.accountSettingsSelectedItem = new SimpleObjectProperty();
     }
 
-
-    //?getting the selected item
+    //!  DASHBOARD SECTION
+    //?getting the DASHBOARD selected item
     public ObjectProperty<DashboardOptions> getDashboardSelectedItem() {
         return dashboardSelectedItem;
     }
 
-    //! getting resources
+    //! getting DASHBOARD resources
     public AnchorPane getAddAnchorPane() {
         if (addAnchorPane == null) {
             try {
@@ -39,51 +45,54 @@ public class ViewFactory {
         }
         return addAnchorPane;
     }
-    public AnchorPane getEditAnchorPane(){
-        if(editAnchorPane == null){
-            try{
+
+    public AnchorPane getEditAnchorPane() {
+        if (editAnchorPane == null) {
+            try {
                 editAnchorPane = new FXMLLoader(getClass().getResource("/FXML/Edit.fxml")).load();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println(e.getCause().getMessage());
             }
         }
         return editAnchorPane;
     }
-   public AnchorPane getViewAnchorPane(){
-        if(viewAnchorPane == null){
-            try{
+
+    public AnchorPane getViewAnchorPane() {
+        if (viewAnchorPane == null) {
+            try {
                 viewAnchorPane = new FXMLLoader(getClass().getResource("/FXML/View.fxml")).load();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println(e.getCause().getMessage());
             }
         }
         return viewAnchorPane;
     }
-   public AnchorPane getProjectAnchorPane(){
-        if(projectAnchorPane == null){
-            try{
+
+    public AnchorPane getProjectAnchorPane() {
+        if (projectAnchorPane == null) {
+            try {
                 projectAnchorPane = new FXMLLoader(getClass().getResource("/FXML/project.fxml")).load();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println(e.getCause().getMessage());
             }
         }
         return projectAnchorPane;
     }
-   public AnchorPane getTodoAnchorPane(){
-        if(todoAnchorPane == null){
-            try{
+
+    public AnchorPane getTodoAnchorPane() {
+        if (todoAnchorPane == null) {
+            try {
                 todoAnchorPane = new FXMLLoader(getClass().getResource("/FXML/Todo.fxml")).load();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println(e.getCause().getMessage());
             }
         }
         return todoAnchorPane;
     }
-
 
     //? Show login
     public void showLogin() {
@@ -101,5 +110,57 @@ public class ViewFactory {
         primaryStage.setResizable(false);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
+    }
+
+    //! ACCOUNT SETTINGS SECTION
+    //?getting the ACCOUNT SETTINGS selected item
+    public ObjectProperty<AccountSettingOptions> getAccountSettingsSelectedItem() {
+        return accountSettingsSelectedItem;
+    }
+
+    //! getting ACCOUNT SETTINGS resources
+    public AnchorPane getHelpAnchorPane() {
+        if (helpAnchorPane == null) {
+            try {
+                helpAnchorPane = new FXMLLoader(getClass().getResource("/FXML/help.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(e.getCause().getMessage());
+            }
+        }
+        return helpAnchorPane;
+    }
+    public AnchorPane getContactDeveloperAnchorPane() {
+        if (contactDeveloperAnchorPane == null) {
+            try {
+                contactDeveloperAnchorPane = new FXMLLoader(getClass().getResource("/FXML/contactDeveloper.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(e.getCause().getMessage());
+            }
+        }
+        return contactDeveloperAnchorPane;
+    }
+    public AnchorPane getCreateAccountAnchorPane() {
+        if (createAccountAnchorPane == null) {
+            try {
+                createAccountAnchorPane = new FXMLLoader(getClass().getResource("/FXML/createAccount.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(e.getCause().getMessage());
+            }
+        }
+        return createAccountAnchorPane;
+    }
+    public AnchorPane getResetPasswordAnchorPane() {
+        if (resetPasswordAnchorPane == null) {
+            try {
+                resetPasswordAnchorPane = new FXMLLoader(getClass().getResource("/FXML/passwordReset.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(e.getCause().getMessage());
+            }
+        }
+        return resetPasswordAnchorPane;
     }
 }

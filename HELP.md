@@ -1,20 +1,20 @@
 >>>>>># 💁 Help Documentation 💁‍♀️
 
-><small>*Developer*</small> **:** `+254 748590146` <small>*or*</small> `+254 740251531`
+><small>*Developer*</small> **:** `+254 748590146` 
 > 
 ><small>*Whatsapp us*</small> **:** Available on our [Whatsapp](https://wa.me/message/IHXTOP6QANKBG1).
 
 >## Login Instructions
 
 1. **Open the Application**:
-   - Launch the `DigitalShopPOS` application from your desktop or start menu.
+   - Launch the `ProgrammingProgress` application from your desktop or start menu.
 2. **Enter Your Credentials**:
-   - Username: Enter your registered `username`.
+   - Username: Enter your registered `email`.
    - Password: Enter your `password`.
 3. **Click on the ``Login`` Button**:
    - Press the `Login` button to access the system.
 4. **Encountering Issues?**:
-   - Ensure your username and password are correct.
+   - Ensure your email and password are correct.
    - Check the error throw in `red color` and adhere to it.
    - If issues persist, contact support (details below).
 
@@ -23,7 +23,7 @@
 For any assistance, please reach out to our customer support team:
 
 - **Email**: <small>`kinuthialawrence343@gmail.com`</small>
-- **Phone**: `+254 748 590 146` <small>*or*</small> `+254 740 251 531`
+- **Phone**: `+254 748 590 146` 
 - **Live Chat**: Available on our [Whatsapp](https://wa.me/message/IHXTOP6QANKBG1).
 
 >## FAQs
@@ -41,22 +41,21 @@ For any assistance, please reach out to our customer support team:
 
 The forgot password hyperlink initiates a secure process to reset your password. Follow these steps to regain access to your account:
 
->### Step 1: Email or Username Input
+>### Step 1: Email 
 
 1. **Go to the Forgot Password Page**:
    - On the login screen, click the 'Forgot Password?' hyperlink.
-2. **Enter Your Registered Email or Username**:
-   - Input the email address or username associated with your account.
+2. **Enter Your Registered Email**:
+   - Input the email address  associated with your account.
 
 >### Step 2: Verification Step
 
 Verify your identity using one of the following options:
 
 1. **Verification Code**:
-   - A verification code will be sent to your registered email or phone number.
+   - A verification code will be sent to your registered email.
    - Enter the verification code in the provided field.
-2. **Security Questions**:
-   - Answer the security questions you set up during account registration.
+
 
 >### Step 3: Password Reset Instructions
 
@@ -81,7 +80,7 @@ After successfully resetting your password, you will receive a confirmation mess
 If you cannot reset your password using the automated process, please contact our customer support team for assistance:
 
 - **Email**: <small>`kinuthialawrence343@gmail.com`</small>
-- **Phone**: `+254 748 590 146` <small>*or*</small> `+254 740 251 531`
+- **Phone**: `+254 748 590 146`
 - **Live Chat**: Available on our [Whatsapp](https://wa.me/message/IHXTOP6QANKBG1).
 
 ---
