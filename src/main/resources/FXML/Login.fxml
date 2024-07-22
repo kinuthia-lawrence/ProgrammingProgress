@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="450.0" prefWidth="700.0" stylesheets="@../STYLES/Login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.larrykin.Controllers.LoginController">
+<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" stylesheets="@../STYLES/Login.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.larrykin.Controllers.LoginController">
    <AnchorPane fx:id="childAnchorPane" layoutX="107.0" layoutY="28.0" opacity="0.61">
       <ImageView fitHeight="119.0" fitWidth="204.0" layoutX="8.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@../IMAGES/coffee-8684315_640.jpg" />
@@ -27,33 +21,39 @@
          </font>
       </Label>
    </AnchorPane>
-   <AnchorPane fx:id="childAnchorPane2" layoutX="380.0" layoutY="85.0" opacity="0.57">
-      <Label alignment="CENTER" layoutX="-3.0" layoutY="85.0" prefHeight="49.0" prefWidth="233.0" text="Login" textFill="#102ceb" AnchorPane.leftAnchor="-3.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="85.0">
+   <AnchorPane fx:id="childAnchorPane2" layoutX="373.0" layoutY="85.0" opacity="0.57" prefHeight="347.0" prefWidth="259.0">
+      <Label alignment="CENTER" layoutX="6.0" layoutY="73.0" prefHeight="30.0" prefWidth="257.0" text="Login" textFill="#102ceb" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="73.0">
          <font>
             <Font size="33.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="1.0" layoutY="165.0" prefHeight="27.0" prefWidth="80.0" text="Email" textFill="#102ceb">
+      <Label alignment="CENTER" layoutX="-5.0" layoutY="142.0" prefHeight="27.0" prefWidth="80.0" text="Email" textFill="#102ceb">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="1.0" layoutY="208.0" prefHeight="27.0" prefWidth="80.0" text="Password" textFill="#102ceb">
+      <Label layoutX="7.0" layoutY="181.0" prefHeight="28.0" prefWidth="80.0" text="Password" textFill="#102ceb">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <TextField fx:id="emailTextfield" layoutX="81.0" layoutY="165.0" prefHeight="27.0" prefWidth="160.0" promptText="larrykin@gmail.com" />
-      <PasswordField fx:id="passwordField" layoutX="81.0" layoutY="210.0" prefHeight="27.0" prefWidth="160.0" promptText="Password" />
+      <TextField fx:id="emailTextfield" layoutX="88.0" layoutY="142.0" prefHeight="27.0" prefWidth="160.0" promptText="larrykin@gmail.com" />
+      <PasswordField fx:id="passwordField" layoutX="88.0" layoutY="181.0" prefHeight="27.0" prefWidth="160.0" promptText="Password" />
       <ImageView fitHeight="71.0" fitWidth="113.0" layoutX="97.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@../IMAGES/lock.png" />
       </ImageView>
-      <Hyperlink fx:id="forgotPasswordHyperlink" alignment="CENTER" layoutX="5.0" layoutY="280.0" prefHeight="23.0" prefWidth="237.0" text="Forgot Password?" textFill="#0c09d3" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="3.0" />
-      <Hyperlink fx:id="createNewAccountHyperlink" alignment="CENTER" layoutX="5.0" layoutY="320.0" prefHeight="23.0" prefWidth="237.0" text="Create new account?" textFill="#0c09d3" />
-      <Label alignment="CENTER" layoutX="5.0" layoutY="303.0" prefWidth="237.0" text="or" />
-      <Button fx:id="loginButton" layoutX="168.0" layoutY="241.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="25.0" prefWidth="60.0" text="Login" textFill="WHITE" />
-      <Button fx:id="cancelButton" layoutX="83.0" layoutY="241.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefWidth="60.0" text="Cancel" textFill="WHITE" />
-      <Label fx:id="alertLabel" alignment="CENTER" layoutX="5.0" layoutY="145.0" prefHeight="20.0" prefWidth="237.0" textFill="#fc0f0f" />
+      <Hyperlink fx:id="forgotPasswordHyperlink" alignment="CENTER_RIGHT" focusTraversable="false" layoutX="6.0" layoutY="287.0" prefHeight="23.0" prefWidth="237.0" text="Forgot Password?" textFill="#0c09d3" underline="true" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" />
+      <Hyperlink fx:id="createNewAccountHyperlink" alignment="CENTER_RIGHT" focusTraversable="false" layoutX="14.0" layoutY="218.0" prefHeight="23.0" prefWidth="237.0" text="Create new account?" textFill="#0c09d3" underline="true" />
+      <Button fx:id="loginButton" layoutX="178.0" layoutY="254.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="30.0" prefWidth="100.0" text="Login" textFill="WHITE" AnchorPane.rightAnchor="14.0">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font></Button>
+      <Button fx:id="cancelButton" layoutX="14.0" layoutY="254.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="30.0" prefWidth="100.0" text="Cancel" textFill="WHITE" AnchorPane.leftAnchor="14.0">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font></Button>
+      <Label fx:id="alertLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="122.0" prefHeight="20.0" prefWidth="249.0" textFill="#fc0f0f" />
+      <Hyperlink fx:id="helpHyperlink" alignment="CENTER_RIGHT" focusTraversable="false" layoutX="11.0" layoutY="310.0" prefHeight="23.0" prefWidth="237.0" text="Help" textFill="#0c09d3" underline="true" />
    </AnchorPane>
    <Label layoutX="616.0" layoutY="17.0" text="\@LarryKin" textFill="#f5f2f2" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
       <font>

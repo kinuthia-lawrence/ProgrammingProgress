@@ -4,12 +4,19 @@ import com.larrykin.Utils.DatabaseConn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 
+import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.ast.Document;
+
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.web.WebView;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -19,13 +26,21 @@ import javafx.fxml.FXML;
 
 import javafx.stage.Stage;
 
+
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ResourceBundle;
 
 
-public class LoginController {
+public class LoginController implements Initializable {
+    @FXML
+    private Hyperlink helpHyperlink;
     @FXML
     private Label alertLabel;
 
@@ -65,12 +80,78 @@ public class LoginController {
     //create a new instance of the database connection
     DatabaseConn connectNow = new DatabaseConn();
 
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        helpHyperlink.setOnAction(event -> openHelpPage());
+        createNewAccountHyperlink.setOnAction(event -> handlePasswordDialog());
+        forgotPasswordHyperlink.setOnAction(event -> handlePasswordDialog());
+    }
+
+    //? Hadle reset password or Create new account
+    private void handlePasswordDialog() {
+        //? opne an alert dialog to confirm if the user wants to reset their password
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("ACCOUNT SETTINGS");
+        alert.setHeaderText("Account Settings");
+        alert.setContentText("Do you want to alter with Account Settings?");
+        //? Set the text color to red
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.lookup(".header-panel").setStyle("-fx-text-fill: red;");
+        dialogPane.lookup(".content").setStyle("-fx-text-fill: red;");
+        //? Add an icon
+        Image image = new Image(getClass().getResourceAsStream("/IMAGES/passwordLock.png"));
+        ImageView imageView = new ImageView(image);
+        alert.setGraphic(imageView);
+
+        alert.showAndWait();
+        //? if the user clicks the OK button, the reset password dialog will be shown
+        if (alert.getResult() == ButtonType.OK) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/AccountSettings.fxml"));
+                Stage resetPasswordStage = new Stage();
+                Scene scene = new Scene(fxmlLoader.load());
+                resetPasswordStage.setScene(scene);
+                resetPasswordStage.setTitle("Account Settings");
+                resetPasswordStage.setResizable(false);
+                resetPasswordStage.centerOnScreen();
+                resetPasswordStage.sizeToScene();
+//                resetPasswordStage.initStyle(StageStyle.UNDECORATED);
+                resetPasswordStage.show();
+                Image icon = new Image(getClass().getResourceAsStream("/IMAGES/passwordLock.png"));
+                resetPasswordStage.getIcons().add(icon);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+    //? Handle Help
+    private void openHelpPage() {
+        try {
+            String markdownContent = new String(Files.readAllBytes(Paths.get("HELP.md")));
+            Parser parser = Parser.builder().build();
+            Document document = parser.parse(markdownContent);
+            HtmlRenderer renderer = HtmlRenderer.builder().build();
+            String htmlContent = renderer.render(document);
+
+            WebView webView = new WebView();
+            webView.getEngine().loadContent(htmlContent);
+            webView.getEngine().setUserStyleSheetLocation(getClass().getResource("/STYLES/darkTheme.css").toString());
+
+            Stage helpStage = new Stage();
+            helpStage.setScene(new Scene(webView, 800.0, 600.0));
+            helpStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     //! close window when cancel button is clicked
     public void cancelButtonOnAction(ActionEvent actionEvent) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
-
 
     public void loginButtonOnAction(ActionEvent actionEvent) {
         if (!emailTextfield.getText().isBlank() && !passwordField.getText().isBlank()) {
