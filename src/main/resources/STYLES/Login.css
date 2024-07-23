@@ -1,8 +1,8 @@
-#mainAnchorPane{
+/*#mainAnchorPane{
     -fx-background-image: url("../images/free-photo-of-shiny-water-at-sunset.jpeg");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover, auto;
-}
+}*/
 #childAnchorPane{
      -fx-background-color: #f0f0f0;
      -fx-background-radius: 20px;

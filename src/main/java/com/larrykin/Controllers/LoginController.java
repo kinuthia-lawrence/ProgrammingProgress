@@ -16,18 +16,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.web.WebView;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXML;
 
 import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -86,6 +87,21 @@ public class LoginController implements Initializable {
         helpHyperlink.setOnAction(event -> openHelpPage());
         createNewAccountHyperlink.setOnAction(event -> handlePasswordDialog());
         forgotPasswordHyperlink.setOnAction(event -> handlePasswordDialog());
+
+        launchBackgroundImage();
+
+    }
+
+    private void launchBackgroundImage() {
+        // Load the image as a resource
+        Image backgroundImage = new Image(getClass().getResourceAsStream("/IMAGES/free-photo-of-shiny-water-at-sunset.jpeg"));
+        // Create a BackgroundImage
+        // Create a BackgroundSize with cover-like behavior
+        BackgroundSize bgSize = new BackgroundSize(100, 100, true, true, true, true);
+// Create the BackgroundImage with the new BackgroundSize
+        BackgroundImage bgImage = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bgSize);
+        // Set the BackgroundImage to the AnchorPane
+        mainAnchorPane.setBackground(new Background(bgImage));
     }
 
     //? Hadle reset password or Create new account
@@ -126,6 +142,7 @@ public class LoginController implements Initializable {
         }
 
     }
+
     //? Handle Help
     private void openHelpPage() {
         try {

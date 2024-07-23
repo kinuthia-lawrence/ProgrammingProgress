@@ -3,21 +3,21 @@
 -fx-border-color: #ff0000;
 -fx-border-width: 2px;
 }
-#headerPane{
+/*#headerPane{
 -fx-background-image: url("../images/pexels-cottonbro-6804613.jpg");
 -fx-background-repeat: no-repeat;
 -fx-background-size: cover, auto;
 -fx-opacity: 0.25;
-}
+}*/
 #leftPane{
 -fx-background-color: #000000;
 -border-color: #ff0000;
 }
-#logoImage{
+/*#logoImage{
     -fx-background-image: url("../images/coffee-8684315_640.jpg");
      -fx-background-repeat: no-repeat;
      -fx-background-size: cover, auto;
-}
+}*/
 #titleAnchorPane{
 -fx-background-color: #ff0000;
 -fx-border-radius: 10px 0 0 0;
@@ -29,19 +29,19 @@
 -fx-background-radius: 10px 0 0 10px;
 -fx-margin-top: 20px;
 }
-#centerPane{
+/*#centerPane{
  -fx-background-image: url("../images/pexels-cottonbro-6804581.jpg");
  -fx-background-repeat: no-repeat;
  -fx-background-size: cover, auto;
  -fx-opacity: 0.75;
-}
-#footerPane{
+}*/
+/*#footerPane{
 -fx-background-color: #000000;
 -fx-background-image: url("../images/pexels-cottonbro-6804581.jpg");
 -fx-background-repeat: no-repeat;
 -fx-background-size: cover, auto;
  -fx-opacity: 0.5;
-}
+}*/
 #searchPane{
     -fx-background-radius: 20px;
     -fx-border-radius: 20px;

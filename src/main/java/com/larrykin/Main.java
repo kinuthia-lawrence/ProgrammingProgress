@@ -13,6 +13,8 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Model.getInstance().getViewFactory().showLogin();
     }
-
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
+    }
 
 }

@@ -10,11 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -124,6 +122,7 @@ public class DashboardController implements Initializable {
         searchComboBox.setValue("Java");
 
         addListeners();
+        setImages();
 
         BorderPane.setCenter(Model.getInstance().getViewFactory().getViewAnchorPane());
         Model.getInstance().getViewFactory().getDashboardSelectedItem().addListener((observable, oldVal, newVal) -> {
@@ -136,6 +135,23 @@ public class DashboardController implements Initializable {
 
             }
         });
+    }
+
+    private void setImages() {
+
+        Image footerPaneImage = new Image(getClass().getResourceAsStream("/IMAGES/pexels-cottonbro-6804581.jpg"));
+        BackgroundSize footerPaneBgSize = new BackgroundSize(100, 100, true, true, true, true);
+        BackgroundImage footerPaneBgImage = new BackgroundImage(footerPaneImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, footerPaneBgSize);
+        footerPane.setBackground(new Background(footerPaneBgImage));
+        footerPane.setStyle("-fx-background-color: #000000;");
+        footerPane.setOpacity(0.5);
+        centerPane.setBackground(new Background(footerPaneBgImage));
+
+
+        Image backgroundImage = new Image(getClass().getResourceAsStream("/IMAGES/coffee-8684315_640.jpg"));
+        BackgroundSize bgSize = new BackgroundSize(100, 100, true, true, true, true);
+        BackgroundImage bgImage = new BackgroundImage(backgroundImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bgSize);
+        logoImage.setBackground(new Background(bgImage));
     }
 
     //? adding listeners to the dashboard buttons
@@ -151,26 +167,26 @@ public class DashboardController implements Initializable {
         handleNotificationCount();
     }
 
-  public synchronized void handleNotificationCount() {
-    new Thread(() -> {
-        try {
-            Connection connectDB = connectNow.getConnection();
-            String query = "SELECT COUNT(*) FROM todos";
-            try (PreparedStatement pstmt = connectDB.prepareStatement(query);
-                 ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    int count = rs.getInt(1);
-                    Platform.runLater(() -> {
-                        notificationCountLabel.setText(String.valueOf(count));
-                    });
+    public synchronized void handleNotificationCount() {
+        new Thread(() -> {
+            try {
+                Connection connectDB = connectNow.getConnection();
+                String query = "SELECT COUNT(*) FROM todos";
+                try (PreparedStatement pstmt = connectDB.prepareStatement(query);
+                     ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        int count = rs.getInt(1);
+                        Platform.runLater(() -> {
+                            notificationCountLabel.setText(String.valueOf(count));
+                        });
+                    }
                 }
+            } catch (Exception e) {
+                System.out.println("Error updating notification count: " + e.getMessage());
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            System.out.println("Error updating notification count: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }).start();
-}
+        }).start();
+    }
 
     private void notificationButtonClicked() {
         Alert showCount = new Alert(Alert.AlertType.INFORMATION);
