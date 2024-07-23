@@ -9,7 +9,7 @@ public class DatabaseConn {
         Connection connection = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/DATABASE/programmingprogress.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:programmingprogress.db");
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
